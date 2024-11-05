@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <LogoTitle logoPath={reactLogo} title='Listify'></LogoTitle>
-      {/*<SearchBar></SearchBar>*/}
+      <SearchBar></SearchBar>
     </>
   )
 }
