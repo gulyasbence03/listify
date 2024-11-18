@@ -1,5 +1,5 @@
 import "./SelectedFive.less"
-import reactLogo from './assets/react.svg'
+import reactLogo from '../assets/react.svg'
 import { SelectedOne } from "./SelectedOne"
 
 export function SelectedFive() {

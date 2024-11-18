@@ -1,6 +1,6 @@
 import { OneSong } from "./OneSong";
 import "./SearchedSongs.less"
-import reactLogo from './assets/react.svg'
+import reactLogo from '../assets/react.svg'
 
 export function SearchedSongs() {
 
@@ -28,8 +28,11 @@ export function SearchedSongs() {
             <h2>Songs</h2>
             <div className='song_col'>
                 {songs.map(
-                    song=> (
-                        <OneSong imagePath={song[0]} artist={song[1]} title={song[2]} length={song[3]}></OneSong>
+                    (song,idx)=> (
+                        <div key={idx+song[0]}>
+                            <OneSong imagePath={song[0]} artist={song[1]} title={song[2]} length={song[3]}></OneSong>
+                        </div>
+                        
                     )
                 )}
                 
