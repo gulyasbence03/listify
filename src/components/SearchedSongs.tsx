@@ -1,43 +1,39 @@
 import { OneSong } from "./OneSong";
 import "./SearchedSongs.less"
-import reactLogo from '../assets/react.svg'
 
-export function SearchedSongs() {
+interface Track{
+    id : string;
+    name: string;
+    duration_ms: number;
+    artists: string[];
+    image: string
+}
 
-    const songs = [[reactLogo,"Pogány Induló","EGY/KETTŐ","4:59"],
-                    [reactLogo,"Desh","SUV","1:49"],
-                    [reactLogo,"TDanny","VIDÉKI CSAJSZI","3:09"],
-                    [reactLogo,"Manuel", "Voodoo Baba","2:34"],
-                    [reactLogo,"Valmar", "Valencia","2:55"],
-                    [reactLogo,"KKevin","Cartier","2:30"],
-                    [reactLogo,"Pogány Induló","EGY/KETTŐ","4:59"],
-                    [reactLogo,"Desh","SUV","1:49"],
-                    [reactLogo,"TDanny","VIDÉKI CSAJSZI","3:09"],
-                    [reactLogo,"Manuel", "Voodoo Baba","2:34"],
-                    [reactLogo,"Valmar", "Valencia","2:55"],
-                    [reactLogo,"KKevin","Cartier","2:30"],
-                    [reactLogo,"Pogány Induló","EGY/KETTŐ","4:59"],
-                    [reactLogo,"Desh","SUV","1:49"],
-                    [reactLogo,"TDanny","VIDÉKI CSAJSZI","3:09"],
-                    [reactLogo,"Manuel", "Voodoo Baba","2:34"],
-                    [reactLogo,"Valmar", "Valencia","2:55"],
-                    [reactLogo,"KKevin","Cartier","2:30"]
-                ];
+
+export function SearchedSongs({ tracksSearched }: { tracksSearched: Track[] }) {
     return (
         <div className="song_container">
             <h2>Songs</h2>
-            <div className='song_col'>
-                {songs.map(
-                    (song,idx)=> (
-                        <div key={idx+song[0]}>
-                            <OneSong imagePath={song[0]} artist={song[1]} title={song[2]} length={song[3]}></OneSong>
-                        </div>
-                        
-                    )
-                )}
-                
-            </div>
+            {tracksSearched.length > 0 ? (
+                <div className="song_col">
+                {tracksSearched.map((track) => (
+                    <div key={track.id}>
+                    <OneSong
+                        imagePath={track.image}
+                        artists={track.artists}
+                        title={track.name}
+                        length_ms={track.duration_ms}
+                    />
+                    </div>
+                ))}
+                </div>
+            ) : (
+                <div className="searchfor">
+                    <h4>Search for songs..</h4>
+                </div>
+            )}
         </div>
+
         
     );
 }

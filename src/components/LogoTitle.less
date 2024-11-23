@@ -1,14 +1,32 @@
 .LogoTitle {
+    //border: 3px solid green; 
+    height: 100%;
+}
+
+.LogoTitle a{
+    width: 100%;
+    
+    //border: 3px solid green; 
     display: flex;
-    flex-direction: row;
-    justify-content: left;
-    border: 3px solid green; 
+    height: 100%;
     align-items: center;
+    color: green;
+}
+
+.LogoTitle a:hover{
+    //filter: drop-shadow(0 0 1em #61fb6eaa);
+    filter: drop-shadow(0 0 0.7em rgb(119, 177, 32));
+    //img {filter: drop-shadow(0 0 1em rgb(119, 177, 32));}
+    //h1{text-shadow: 0 0 5px #61fb6eaa;}
+    .logo {
+        animation: logo-spin infinite 5s linear;
+    }
+
 }
 
 .title {
-    font-size: 3em;
-    padding-right: 1em;
+    font-size: 2.2em;
+    padding-right: 3em;
     font-weight: bolder;
     font-family: monospace;
 }
@@ -25,17 +43,13 @@
 
 @media (prefers-reduced-motion: no-preference) {
     .logo {
-        animation: logo-spin infinite 20s linear;
+        //animation: logo-spin infinite 15s linear;
     }
 }
 
 .logo {
-    height: 4em;
     will-change: filter;
     transition: filter 300ms;
-    margin: 0 1em;
-}
-
-.logo:hover {
-    filter: drop-shadow(0 0 2em #61dafbaa);
+    margin: 0 0.6em;
+    height: 75%;
 }

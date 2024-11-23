@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import "./SearchBar.less"
-import { getArtists } from '../api/API';
+import { getArtists, getTracks } from '../api/API';
 import { Dispatch, SetStateAction } from "react";
 import reactLogo from '../assets/react.svg'
 
@@ -10,11 +10,21 @@ interface Artist {
   images: string; // URL of the first image
 }
 
-interface SearchBarProps {
-  setArtistsSearched: (artists: Artist[]) => void;
+interface Track{
+    id: string;
+    name: string;
+    duration_ms: number;
+    artists: string[];
+    image: string;
 }
 
-export function SearchBar({ setArtistsSearched } : SearchBarProps) {
+
+interface SearchBarProps {
+  setArtistsSearched: (artists: Artist[]) => void,
+  setTracksSearched: (tracks: Track[]) => void
+}
+
+export function SearchBar({ setArtistsSearched, setTracksSearched } : SearchBarProps) {
 
     const [searched, setSearched] = useState ("");
 
@@ -28,10 +38,11 @@ export function SearchBar({ setArtistsSearched } : SearchBarProps) {
             onChange={(e) => setSearched(e.target.value)}
             onKeyDown={async (event) => {
                     if (event.key === "Enter" && searched.trim() != ""){
-                      const response = await getArtists(searched.trim());
-                      console.log(response);
+                      // Search artists
+                      const responseArtists = await getArtists(searched.trim());
+                      console.log(responseArtists);
                       setArtistsSearched(
-                        response.artists.items.map(
+                        responseArtists.artists.items.map(
                           (artist: {
                             id: string,
                             name: string,
@@ -43,9 +54,37 @@ export function SearchBar({ setArtistsSearched } : SearchBarProps) {
                             return {
                               id: artist.id,
                               name: artist.name,
-                              images: (artist.images.length>0)?artist.images[0].url: reactLogo
+                              images: artist.images?.[0]?.url || reactLogo
                             };
-                          }  
+                          }
+                      )
+                    );
+                    // Search tracks
+                    const responseTracks = await getTracks(searched.trim());
+                    console.log(responseTracks);
+                    setTracksSearched(
+                      responseTracks.tracks.items.map(
+                        (track: {
+                          id : string,
+                          name: string,
+                          duration_ms: number,
+                          artists: [{
+                            name: string
+                          }],
+                          album: {
+                            images: [{
+                              url: string
+                            }]
+                          }
+                        }) => {
+                          return {
+                            id: track.id,
+                            name: track.name,
+                            duration_ms: track.duration_ms,
+                            artists: track.artists?.map((artist) => artist.name) || [],
+                            image: track.album.images?.[0]?.url || reactLogo
+                          }
+                        }
                       )
                     );
                   }

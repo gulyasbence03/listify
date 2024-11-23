@@ -9,7 +9,8 @@ export function LogoTitle({ logoPath, title }: LogoTitleProps) {
     return <div className="LogoTitle">
         <a href="index.html" className="floatleft">
             <img src={logoPath} className="logo" alt="logo image" />
+            <h1 className="title floatleft">{title}</h1>
         </a>
-        <h1 className="title floatleft">{title}</h1>
+
     </div>
 }

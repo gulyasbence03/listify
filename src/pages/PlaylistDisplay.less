@@ -1,6 +1,9 @@
 .playlist_side{
     width: 100%;
-    border: 2px solid yellow;
+    height: 100%;
+    //border: 2px solid yellow;
+    margin: 4px;
+    border-radius: 10px;
 }
 
 .playlist_container button{
@@ -12,31 +15,29 @@
 
 .header{
     display: flex;
-    align-items: center;
+    height: 7vh;
 }
 
 .playlist_title{
-    font-size: 3em;
+    font-size: 2em;
     background-color: #212121;
-    text-align: center;
-    margin: 0.2em 0;
-    margin-left: 3em;
-    width: 60%;
+    text-align: left;
+    width: 10em;
 }
 
 .playlist_container{
     overflow-y: scroll;
-    height: 87.5%;
     border-top: 10px solid rgb(77, 77, 77);
 }
 
 .playlist_box{
-    height: 80%;
-    width: 80%;
-    margin: 1em 2em 2em 2em;
-    border: 10px solid rgb(77, 77, 77);
+    height: 85vh;
     border-radius: 10px;
-    background-color: rgb(48, 48, 48);
+    background-color: #121212;
+}
+
+.playlist_box label{
+    font-size: 2em;
 }
 
 .one_line{
@@ -54,11 +55,15 @@
 
 .player_side{
     width: 100%;
-    height: 100%;
-    border: 2px solid yellow;
+    height: 85vh;
+    //border: 2px solid yellow;
     justify-content: center;
     align-items: center;
     display: flex;
+    background-color: #121212;
+    margin-top: 10vh;
+    border-radius: 10px;
+    margin: 10.3vh 4px;
 }
 
 .player_side iframe{
@@ -66,7 +71,6 @@
 }
 
 .player{
-    height: 70%;
-    width: 80%;
-    margin-top: 6em;
+    height: 100%;
+    width: 100%;
 }

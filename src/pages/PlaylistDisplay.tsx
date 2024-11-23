@@ -1,30 +1,10 @@
 import { LogoTitle } from "../components/LogoTitle"
 import { OneSong } from "../components/OneSong";
-import reactLogo from '../assets/react.svg'
+import logo from '../assets/gear.png'
 import "./PlaylistDisplay.less"
 import { useEffect, useState } from "react";
 
 export function PlaylistDisplay(){
-
-    const songs = [[reactLogo,"Pogány Induló","EGY/KETTŐ","4:59"],
-                    [reactLogo,"Desh","SUV","1:49"],
-                    [reactLogo,"TDanny","VIDÉKI CSAJSZI","3:09"],
-                    [reactLogo,"Manuel", "Voodoo Baba","2:34"],
-                    [reactLogo,"Valmar", "Valencia","2:55"],
-                    [reactLogo,"KKevin","Cartier","2:30"],
-                    [reactLogo,"Pogány Induló","EGY/KETTŐ","4:59"],
-                    [reactLogo,"Desh","SUV","1:49"],
-                    [reactLogo,"TDanny","VIDÉKI CSAJSZI","3:09"],
-                    [reactLogo,"Manuel", "Voodoo Baba","2:34"],
-                    [reactLogo,"Valmar", "Valencia","2:55"],
-                    [reactLogo,"KKevin","Cartier","2:30"],
-                    [reactLogo,"Pogány Induló","EGY/KETTŐ","4:59"],
-                    [reactLogo,"Desh","SUV","1:49"],
-                    [reactLogo,"TDanny","VIDÉKI CSAJSZI","3:09"],
-                    [reactLogo,"Manuel", "Voodoo Baba","2:34"],
-                    [reactLogo,"Valmar", "Valencia","2:55"],
-                    [reactLogo,"KKevin","Cartier","2:30"]
-                ];
 
     let [playName, setPlayName] = useState("My Playlist");
     
@@ -33,24 +13,17 @@ export function PlaylistDisplay(){
     return <>
         <div className="playlist_side">
             <div className="header">
-                <LogoTitle logoPath={reactLogo} title="Listify"></LogoTitle>
+                <LogoTitle logoPath={logo} title="Listify"></LogoTitle>
             </div>
                 
             
-            <div className="playlist_box">      
-                <input type="text" className="playlist_title" 
-                    value={playName}  onChange={e => setPlayName(e.target.value)}></input>
-                
-                <div className="playlist_container">
-                    {songs.map(
-                        (song,index)=> (
-                            <div className="one_line" key={index + song[0]}>
-                                <span>#{index+1}</span>
-                                <OneSong imagePath={song[0]} artist={song[1]} title={song[2]} length={song[3]}></OneSong>
-                            </div>
-                        )
-                    )}
-                </div>
+            <div className="playlist_box">  
+                <div>
+                    <label htmlFor="title">Playlist name: </label>
+                    <input type="text" id="title" className="playlist_title" 
+                        value={playName}  onChange={e => setPlayName(e.target.value)}></input>
+                </div>    
+
             
             </div>
 
