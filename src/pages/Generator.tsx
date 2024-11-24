@@ -8,30 +8,18 @@ import { SearchedSongs } from '../components/SearchedSongs'
 import { SelectedFive } from '../components/SelectedFive'
 import { TextButton } from '../components/TextButton'
 import './Generator.less'
+import { Artist, SelectedType, Track } from '../App'
 
 
 interface GeneratorProps{
     onGenerate: ()=> void
 }
 
-interface Artist {
-    id: string;
-    name: string;
-    images: string; // URL of the first image
-}
-
-interface Track{
-    id : string;
-    name: string;
-    duration_ms: number;
-    artists: string[];
-    image: string
-}
-
 export function Generator({onGenerate}: GeneratorProps){
     
     const [artistsSearched, setArtistsSearched] = useState<Artist[]>([]);
     const [tracksSearched, setTracksSearched] = useState<Track[]>([]);
+    const [selected, setSelected] = useState<SelectedType[]>([]);
 
     return <>
         <div className='left'>
@@ -43,11 +31,11 @@ export function Generator({onGenerate}: GeneratorProps){
                 </div>
             </div>
             <SearchedArtists artistsSearched = {artistsSearched}></SearchedArtists>
-            <SearchedSongs tracksSearched = {tracksSearched}></SearchedSongs>
+            <SearchedSongs tracksSearched = {tracksSearched} addToList={setSelected} selectedList={selected}></SearchedSongs>
         </div>
         
         <div className='right'>
-            <SelectedFive></SelectedFive>
+            <SelectedFive selected={selected}></SelectedFive>
             <div className='generate_button'>
             <TextButton onClick={onGenerate} text='Generate'></TextButton>
             </div>
