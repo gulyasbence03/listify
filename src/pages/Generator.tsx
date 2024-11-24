@@ -30,7 +30,7 @@ export function Generator({onGenerate}: GeneratorProps){
                     <TextButton onClick={handleLogin} text="Login"></TextButton>
                 </div>
             </div>
-            <SearchedArtists artistsSearched = {artistsSearched}></SearchedArtists>
+            <SearchedArtists artistsSearched = {artistsSearched} addToList={setSelected} selectedList={selected}></SearchedArtists>
             <SearchedSongs tracksSearched = {tracksSearched} addToList={setSelected} selectedList={selected}></SearchedSongs>
         </div>
         

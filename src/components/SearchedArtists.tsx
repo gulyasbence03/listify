@@ -1,12 +1,14 @@
+import { Artist, SelectedType } from "../App";
+import { OneArtist } from "./OneArtist";
 import "./SearchedArtists.less"
 
-interface Artist {
-    id: string;
-    name: string;
-    images: string; // URL of the first image
-  }
+interface SearchedArtistsProps{
+    artistsSearched: Artist[];
+    addToList: (selected: SelectedType[])=>void;
+    selectedList: SelectedType[];
+}
 
-  export function SearchedArtists({ artistsSearched }: { artistsSearched: Artist[] }) {
+  export function SearchedArtists({ artistsSearched, addToList, selectedList }: SearchedArtistsProps) {
     return (
 
         <div className="artist_container">
@@ -14,10 +16,7 @@ interface Artist {
         {artistsSearched.length > 0 ? (
             <div className="artists_row">
             {artistsSearched.map((artist: Artist) => (
-                <div className="one_artist" key={artist.id}>
-                <img src={artist.images} alt={artist.name} />
-                <h3>{artist.name}</h3>
-                </div>
+                <OneArtist  key={artist.id} artist={artist} addToList={addToList} selectedList={selectedList}></OneArtist>
             ))}
             </div>
         ) : (

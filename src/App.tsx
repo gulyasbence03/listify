@@ -20,8 +20,8 @@ export interface Track{
 export interface SelectedType{
   id: string;
   type: string;
-  artists: string;
-  title?: string;
+  artists?: string;
+  title: string;
   icon:string;
 }
 
