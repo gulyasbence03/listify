@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { handleLogin } from '../api/Authorize'
 import logo from '../assets/gear.png'
 import { LogoTitle } from '../components/LogoTitle'
 import { SearchBar } from '../components/SearchBar'
@@ -26,8 +25,11 @@ export function Generator({onGenerate}: GeneratorProps){
             <div className='top_bar'>
                 <LogoTitle logoPath={logo} title='Listify'></LogoTitle>
                 <SearchBar setArtistsSearched = {setArtistsSearched} setTracksSearched = {setTracksSearched}></SearchBar>
-                <div className='login_button'>
-                    <TextButton onClick={handleLogin} text="Login"></TextButton>
+                <div className='logout_container'>
+                    <TextButton text='Log Out' onClick={() => {
+                        localStorage.removeItem("access_token");
+                        location.href = "http://localhost:5173/"
+                    }}></TextButton>
                 </div>
             </div>
             <SearchedArtists artistsSearched = {artistsSearched} addToList={setSelected} selectedList={selected}></SearchedArtists>

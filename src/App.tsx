@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { Generator } from './pages/Generator'
 import { PlaylistDisplay } from './pages/PlaylistDisplay'
+import { Login } from './pages/Login';
 
 export interface Artist {
   id: string;
@@ -27,11 +28,18 @@ export interface SelectedType{
 
 function App() {
   let [isPlaylistReady, setIsPlayListReady] = useState(false);
+  const token = localStorage.getItem('access_token');
+  console.log(token);
   return (
-    isPlaylistReady?<PlaylistDisplay/>:<Generator onGenerate={() => {
-      setIsPlayListReady(true);
-    }
-  }/>
+    token?
+    (
+      isPlaylistReady?<PlaylistDisplay/>:<Generator onGenerate={() => {
+        setIsPlayListReady(true);
+      }}/>
+    )
+    :(
+      <Login></Login>
+    )
   )
 }
 
