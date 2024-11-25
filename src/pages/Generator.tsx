@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import logo from '../assets/gear.png'
+import logout from "../assets/logout.png"
 import { LogoTitle } from '../components/LogoTitle'
 import { SearchBar } from '../components/SearchBar'
 import { SearchedArtists } from '../components/SearchedArtists'
@@ -26,7 +27,7 @@ export function Generator({onGenerate}: GeneratorProps){
                 <LogoTitle logoPath={logo} title='Listify'></LogoTitle>
                 <SearchBar setArtistsSearched = {setArtistsSearched} setTracksSearched = {setTracksSearched}></SearchBar>
                 <div className='logout_container'>
-                    <TextButton text='Log Out' onClick={() => {
+                    <TextButton shadowType='exit' icon={logout} text='Log Out' onClick={() => {
                         localStorage.removeItem("access_token");
                         location.href = "http://localhost:5173/"
                     }}></TextButton>
@@ -39,7 +40,7 @@ export function Generator({onGenerate}: GeneratorProps){
         <div className='right'>
             <SelectedFive selected={selected}></SelectedFive>
             <div className='generate_button'>
-            <TextButton onClick={onGenerate} text='Generate'></TextButton>
+            <TextButton shadowType='do' animate={true} icon={logo} onClick={onGenerate} text='Generate'></TextButton>
             </div>
         </div>
     </>

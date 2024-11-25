@@ -3,13 +3,15 @@ interface LogInButtonPorps{
     onClick: ()=>void;
     text: string;
     icon?: string;
+    animate?: boolean;
+    shadowType?: string;
 }
 
-export function TextButton({onClick, text, icon}:LogInButtonPorps) {
+export function TextButton({shadowType, animate, onClick, text, icon}:LogInButtonPorps) {
 
 
     return <div className="textbutton">
-        <button onClick={onClick}>
+        <button onClick={onClick} className={'animate_'+animate+' '+'type_'+shadowType}>
             <img src={icon}/>
             <p>{text}</p>
         </button>

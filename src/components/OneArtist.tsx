@@ -31,7 +31,7 @@ export function OneArtist({artist,selectedList, addToList}:OneArtistProps){
         }
     }}>
             <div className="oneartist">
-                <img src={artist.images} alt={artist.name} />
+                <img className="oneartist_img" src={artist.images} alt={artist.name} />
                 <h3>{artist.name}</h3>
             </div>
         </button>

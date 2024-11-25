@@ -1,7 +1,6 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import "./SearchBar.less"
 import { getArtists, getTracks } from '../api/API';
-import { Dispatch, SetStateAction } from "react";
 import reactLogo from '../assets/react.svg'
 
 interface Artist {

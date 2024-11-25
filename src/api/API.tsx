@@ -12,7 +12,14 @@ export const getArtists = async (searchQuery: string) => {
           },
         }
       );
+
+      if(response.status === 401){
+        localStorage.setItem("isTimeout","true");
+        localStorage.removeItem("access_token");
+        location.href = "http://localhost:5173/";
+      }
       return response.json();
+      
     }
     catch(error){
       console.log(error);

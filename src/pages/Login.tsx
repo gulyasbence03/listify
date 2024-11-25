@@ -4,9 +4,11 @@ import { TextButton } from '../components/TextButton'
 import spotifylogo from "../assets/spotify-logo.png"
 import listifylogo from "../assets/gear.png"
 import "./Login.less"
+import { TimeoutAlert } from '../components/TimeoutAlert'
 
 export function Login(){
     return <div className='login_container'>
+        {(localStorage.getItem("isTimeout") === "true")?<TimeoutAlert></TimeoutAlert>:""}
         <div className='login_left'>
             <div className='left_logo'>
                 <img src={listifylogo} alt="Rotating Logo" />
@@ -19,7 +21,7 @@ export function Login(){
 Make your music truly yours with Listify!✨</p>
             <div className='row'>
                 <div className='login_button'>
-                    <TextButton onClick={handleLogin} text="Login" icon={spotifylogo}></TextButton>
+                    <TextButton shadowType='do' onClick={handleLogin} text="Login" icon={spotifylogo}></TextButton>
                 </div>
                 <div className="help-button">
                     ?

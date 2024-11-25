@@ -6,10 +6,10 @@
 }
 
 .song_container h2{
-    margin: 0;
     font-size: 2.5em;
-    margin: 0 0 0.2em 0.5em;
+    margin: 0 0 0 0.5em;
     font-weight: 300;
+    padding-top: 0.3em;
 }
 
 .searchfor{
@@ -25,6 +25,7 @@
     //border: 2px solid white;
     align-items: center;
     width: 100%;
+    
 }
 
 .title_artist h3{
@@ -54,11 +55,14 @@
 .song_col{
     display: grid;
     grid-template-columns: repeat(2, minmax(400px, 1fr));
-    height: 80%;
-    border: 1px solid orange;
+    height: 81%;
+    //border: 1px solid orange;
     overflow-y:hidden;
     scrollbar-gutter: stable;
     scroll-behavior: smooth;
+    padding-top: 30px;
+    margin-top: -2%;
+    margin-left: 0.4em;
 }
 
 .song_col:hover{
@@ -70,15 +74,17 @@
 }
 
 .song_col button{
-    background-color: #212121;
+    background: none;
     border-radius: 6px;
     border: none;
-    
-    width: 100%;
+    width: 99%;
+    margin-left: 0.5%;
+    margin-bottom: 1%;
+    border: 1px solid gray;
 }
 
 .song_col button:hover{
-    background-color: #474747;
+    
 }
 
 .song_col button:active { 

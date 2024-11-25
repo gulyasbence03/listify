@@ -16,7 +16,7 @@ export function OneSong({id,imagePath,title,artists,length_ms,addToList, selecte
     const seconds = (Math.floor(length_ms/1000%60));
     const time = `${minute}` + ':' + ((seconds<10)?'0':'') + `${seconds}`; 
     return <>
-        <button className="onesong" onClick={ ()=> {
+        <button className="onesong_button" onClick={ ()=> {
                 selectedList = selectedList || [];
                 let idAlreadyAdded = false;
                 selectedList.forEach(element => {

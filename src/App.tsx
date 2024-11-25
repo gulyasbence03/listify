@@ -27,7 +27,7 @@ export interface SelectedType{
 }
 
 function App() {
-  let [isPlaylistReady, setIsPlayListReady] = useState(false);
+  const [isPlaylistReady, setIsPlayListReady] = useState(false);
   const token = localStorage.getItem('access_token');
   console.log(token);
   return (

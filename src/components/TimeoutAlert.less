@@ -1,0 +1,68 @@
+.alert {
+    position: absolute;
+    top: 10;
+    left: 70%;
+    width: auto;
+    height: auto;
+    padding: 8px;
+    margin: 10px;
+    line-height: 1.8;
+    border-radius: 8px;
+    cursor: hand;
+    cursor: pointer;
+    font-family: sans-serif;
+    
+  }
+  
+  .alertCheckbox {
+    display: none;
+  }
+  
+  :checked + .alert {
+    display: none;
+  }
+  
+  .alertText {
+    display: table;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 400;
+    padding-right: 10px;
+  }
+  
+  .alertClose {
+    float: right;
+    font-size: 1.8em;
+    line-height: 0.3em;
+    font-weight: 300;
+  }
+  
+  .clear {
+    clear: both;
+  }
+
+  .error {
+    background-color: #F3DFE0;
+    color: #FF262D;
+  }
+
+  .line {
+    position: absolute;
+    width: 100%; /* Full width initially */
+    height: 10%;
+    background-color: #FF262D; /* Line color */
+    animation: moveLeft 10s linear forwards; /* Animates over 3 seconds */
+    border-radius: 10px;
+  }
+  
+  @keyframes moveLeft {
+    from {
+      right: 0; /* Start from the right edge */
+      width: 100%; /* Full width */
+    }
+    to {
+      right: 100%; /* Move completely out of view */
+      width: 0; /* Shrink to 0 */
+    }
+  }
