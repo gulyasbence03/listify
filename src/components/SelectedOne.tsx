@@ -1,6 +1,5 @@
 import "./SelectedOne.less"
 
-
 interface SelectedOneProps {
     type: string
     iconPath: string

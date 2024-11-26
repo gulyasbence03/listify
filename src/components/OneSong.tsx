@@ -1,4 +1,4 @@
-import { SelectedType } from "../App";
+import { SelectedType } from "../tools/Types";
 import "./OneSong.less"
 
 interface OneSongProps{

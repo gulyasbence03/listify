@@ -1,6 +1,6 @@
-import "./SelectedFive.less"
+import { SelectedType } from "../tools/Types";
 import { SelectedOne } from "./SelectedOne"
-import { SelectedType } from "../App";
+import "./SelectedFive.less"
 
 interface SelectedFiveProps{
     selected : SelectedType[];

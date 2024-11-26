@@ -7,8 +7,8 @@ import { SearchedArtists } from '../components/SearchedArtists'
 import { SearchedSongs } from '../components/SearchedSongs'
 import { SelectedFive } from '../components/SelectedFive'
 import { TextButton } from '../components/TextButton'
+import { Artist, SelectedType, Track } from '../tools/Types'
 import './Generator.less'
-import { Artist, SelectedType, Track } from '../App'
 
 
 interface GeneratorProps{

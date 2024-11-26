@@ -1,4 +1,5 @@
-import { Artist, SelectedType } from "../App";
+
+import { Artist, SelectedType } from "../tools/Types";
 import "./OneArtist.less"
 
 interface OneArtistProps{
@@ -25,7 +26,7 @@ export function OneArtist({artist,selectedList, addToList}:OneArtistProps){
                     title: artist.name,
                     artists: "",
                     icon: artist.images,
-                    id: artist.id
+                    id: artist.id,
                 },
             ]);
         }

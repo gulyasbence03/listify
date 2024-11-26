@@ -1,8 +1,8 @@
 import {useState} from 'react'
-import "./SearchBar.less"
 import { getArtists, getTracks } from '../api/API';
+import { Artist, Track } from '../tools/Types';
 import reactLogo from '../assets/react.svg'
-import { Artist, Track } from '../App';
+import "./SearchBar.less"
 
 
 interface SearchBarProps {
@@ -26,7 +26,6 @@ export function SearchBar({ setArtistsSearched, setTracksSearched } : SearchBarP
                     if (event.key === "Enter" && searched.trim() != ""){
                       // Search artists
                       const responseArtists = await getArtists(searched.trim());
-                      console.log(responseArtists);
                       setArtistsSearched(
                         responseArtists.artists.items.map(
                           (artist: {
@@ -47,7 +46,6 @@ export function SearchBar({ setArtistsSearched, setTracksSearched } : SearchBarP
                     );
                     // Search tracks
                     const responseTracks = await getTracks(searched.trim());
-                    console.log(responseTracks);
                     setTracksSearched(
                       responseTracks.tracks.items.map(
                         (track: {

@@ -1,4 +1,4 @@
-import { Artist, SelectedType } from "../App";
+import { Artist, SelectedType } from "../tools/Types";
 import { OneArtist } from "./OneArtist";
 import "./SearchedArtists.less"
 

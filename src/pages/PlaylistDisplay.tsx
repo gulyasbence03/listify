@@ -1,8 +1,7 @@
 import { LogoTitle } from "../components/LogoTitle"
-import { OneSong } from "../components/OneSong";
 import logo from '../assets/gear.png'
+import {useState } from "react";
 import "./PlaylistDisplay.less"
-import { useEffect, useState } from "react";
 
 interface PlaylistDisplayProps{
     playlistId?: string | null;
@@ -12,13 +11,9 @@ export function PlaylistDisplay({playlistId} : PlaylistDisplayProps){
 
     let [playName, setPlayName] = useState("My Playlist");
 
-    return <>
-        <div className="playlist_side">
-            <div className="header">
-                <LogoTitle logoPath={logo} title="Listify"></LogoTitle>
-            </div>
-                
-            
+
+    /*
+                            
             <div className="playlist_box">  
                 <div>
                     <label htmlFor="title">Playlist name: </label>
@@ -28,8 +23,12 @@ export function PlaylistDisplay({playlistId} : PlaylistDisplayProps){
 
             
             </div>
-
-        </div>
+    */
+    return <>
+            <div className="header">
+                <LogoTitle logoPath={logo} title="Listify"></LogoTitle>
+            </div>
+            
         <div className="player_side">
             <div className="player">
                 <iframe

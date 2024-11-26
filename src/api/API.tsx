@@ -1,5 +1,11 @@
 const BASEURL = `https://api.spotify.com/v1`;
 
+const logOutOnError = ()=>{
+  localStorage.setItem("isTimeout","true");
+  localStorage.removeItem("access_token");
+  location.href = "http://localhost:5173/";
+}
+
 export const getArtists = async (searchQuery: string) => {
 
   const token = localStorage.getItem("access_token");
@@ -14,16 +20,15 @@ export const getArtists = async (searchQuery: string) => {
       );
 
       if(response.status === 401){
-        localStorage.setItem("isTimeout","true");
-        localStorage.removeItem("access_token");
-        location.href = "http://localhost:5173/";
+        logOutOnError();
       }
       return response.json();
       
     }
-    catch(error){
-      console.log(error);
-    }};
+  catch(error){
+    console.log(error);
+  }
+};
 
 
 export const getTracks = async (searchQuery: string) => {
@@ -39,15 +44,14 @@ export const getTracks = async (searchQuery: string) => {
         }
       );
       if(response.status === 401){
-        localStorage.setItem("isTimeout","true");
-        localStorage.removeItem("access_token");
-        location.href = "http://localhost:5173/";
+        logOutOnError();
       }
       return response.json();
     }
-    catch(error){
-      console.log(error);
-    }};
+  catch(error){
+    console.log(error);
+  }
+};
 
 export const getRecommendation = async (limit: number, artists: string[], tracks : string[]) => {
   const token = localStorage.getItem("access_token");
@@ -61,15 +65,14 @@ export const getRecommendation = async (limit: number, artists: string[], tracks
         }
       );
       if(response.status === 401){
-        localStorage.setItem("isTimeout","true");
-        localStorage.removeItem("access_token");
-        location.href = "http://localhost:5173/";
+        logOutOnError();
       }
       return response.json();
     }
-    catch(error){
-      console.log(error);
-    }};
+  catch(error){
+    console.log(error);
+  }
+};
 
 
 export const createPlaylist = async (tracks : string[], playlist_name:string, isPublic: boolean) => {
@@ -102,15 +105,13 @@ export const createPlaylist = async (tracks : string[], playlist_name:string, is
       });
 
       if(result.status === 401){
-        localStorage.setItem("isTimeout","true");
-        localStorage.removeItem("access_token");
-        location.href = "http://localhost:5173/";
+        logOutOnError();
       }
       return playlistID;
     }
-    catch(error){
-      console.log(error);
-    }
+  catch(error){
+    console.log(error);
+  }
 };
 
 
@@ -126,34 +127,32 @@ export const getUserId = async () => {
         }
       );
       if(response.status === 401){
-        localStorage.setItem("isTimeout","true");
-        localStorage.removeItem("access_token");
-        location.href = "http://localhost:5173/";
+        logOutOnError();
       }
       return response.json();
     }
-    catch(error){
-      console.log(error);
-    }};
+  catch(error){
+    console.log(error);
+  }
+};
 
-    export const getTopFive = async (artistId: string) => {
-      const token = localStorage.getItem("access_token");
-        try {
-          const response = await fetch(
-            `${BASEURL}/artists/${artistId}/top-tracks`,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          if(response.status === 401){
-            localStorage.setItem("isTimeout","true");
-            localStorage.removeItem("access_token");
-            location.href = "http://localhost:5173/";
-          }
-          return response.json();
+export const getTopFive = async (artistId: string) => {
+  const token = localStorage.getItem("access_token");
+    try {
+      const response = await fetch(
+        `${BASEURL}/artists/${artistId}/top-tracks`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
         }
-        catch(error){
-          console.log(error);
-        }};
+      );
+      if(response.status === 401){
+        logOutOnError();
+      }
+      return response.json();
+    }
+  catch(error){
+    console.log(error);
+  }
+};
