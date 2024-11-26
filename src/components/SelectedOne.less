@@ -13,29 +13,33 @@ img.rounded{
 }
 
 .artist_type{
+    max-width: 20vw;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 3%;
+    margin: 2%;
     border: 2px solid  rgba(0, 132, 255, 1);
     border-radius: 15px;
     filter: drop-shadow(0 0.2em 1em rgba(0, 132, 255, 1));
 }
 
 .song_type{
+    max-width: 25vw;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 3%;
+    margin: 2%;
     border: 2px solid rgb(230, 12, 131);
     border-radius: 15px;
     filter: drop-shadow(0 0.2em 1em rgb(230, 12, 66));
+    overflow: hidden;
 }
 
 h3,h4{
     height: 1em;
     line-height: 1em;
     margin: 0.2em 0.5em;
+    text-wrap: nowrap;
 }
 
 h3{
@@ -48,7 +52,6 @@ h4{
     font-weight: 500;
     font-size: large;
     color: gray;
-    text-wrap: nowrap;
 }
 
 .artist_type h4{

@@ -9,9 +9,10 @@ interface OneSongProps{
     length_ms: number;
     addToList: (selected: SelectedType[])=>void;
     selectedList: SelectedType[];
+    artistsIds: string[];
 } 
 
-export function OneSong({id,imagePath,title,artists,length_ms,addToList, selectedList}: OneSongProps){
+export function OneSong({id,artistsIds,imagePath,title,artists,length_ms,addToList, selectedList}: OneSongProps){
     const minute = Math.floor(length_ms/1000/60);
     const seconds = (Math.floor(length_ms/1000%60));
     const time = `${minute}` + ':' + ((seconds<10)?'0':'') + `${seconds}`; 
@@ -33,7 +34,8 @@ export function OneSong({id,imagePath,title,artists,length_ms,addToList, selecte
                             title: title,
                             artists: artists.join(", "),
                             icon: imagePath,
-                            id: id
+                            id: id,
+                            artistsIds: artistsIds
                         },
                     ]);
                 }

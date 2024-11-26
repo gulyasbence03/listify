@@ -2,20 +2,7 @@ import {useState} from 'react'
 import "./SearchBar.less"
 import { getArtists, getTracks } from '../api/API';
 import reactLogo from '../assets/react.svg'
-
-interface Artist {
-  id: string;
-  name: string;
-  images: string; // URL of the first image
-}
-
-interface Track{
-    id: string;
-    name: string;
-    duration_ms: number;
-    artists: string[];
-    image: string;
-}
+import { Artist, Track } from '../App';
 
 
 interface SearchBarProps {
@@ -68,7 +55,8 @@ export function SearchBar({ setArtistsSearched, setTracksSearched } : SearchBarP
                           name: string,
                           duration_ms: number,
                           artists: [{
-                            name: string
+                            name: string,
+                            id: string
                           }],
                           album: {
                             images: [{
@@ -81,7 +69,8 @@ export function SearchBar({ setArtistsSearched, setTracksSearched } : SearchBarP
                             name: track.name,
                             duration_ms: track.duration_ms,
                             artists: track.artists?.map((artist) => artist.name) || [],
-                            image: track.album.images?.[0]?.url || reactLogo
+                            image: track.album.images?.[0]?.url || reactLogo,
+                            artistIds: track.artists?.map((artist) => artist.id) || []
                           }
                         }
                       )

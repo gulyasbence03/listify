@@ -4,11 +4,13 @@ import logo from '../assets/gear.png'
 import "./PlaylistDisplay.less"
 import { useEffect, useState } from "react";
 
-export function PlaylistDisplay(){
+interface PlaylistDisplayProps{
+    playlistId?: string | null;
+}
+
+export function PlaylistDisplay({playlistId} : PlaylistDisplayProps){
 
     let [playName, setPlayName] = useState("My Playlist");
-    
-    const playlistId = '5y5yTj3yr362mUjFe6xLRn';
 
     return <>
         <div className="playlist_side">
@@ -32,7 +34,7 @@ export function PlaylistDisplay(){
             <div className="player">
                 <iframe
                 title="Spotify Embed: Recommendation Playlist "
-                src={`https://open.spotify.com/embed/playlist/5y5yTj3yr362mUjFe6xLRn?utm_source=generator&theme=0`}
+                src={playlistId?`https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`:''}
                 width="100%"
                 height="100%"
                 style={{ minHeight: '360px' }}

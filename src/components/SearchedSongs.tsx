@@ -1,14 +1,6 @@
-import { SelectedType } from "../App";
+import { Artist, SelectedType, Track } from "../App";
 import { OneSong } from "./OneSong";
 import "./SearchedSongs.less"
-
-interface Track{
-    id : string;
-    name: string;
-    duration_ms: number;
-    artists: string[];
-    image: string
-}
 
 interface SearchedSongsProps{
     tracksSearched: Track[];
@@ -32,6 +24,7 @@ export function SearchedSongs({ tracksSearched, addToList, selectedList} : Searc
                         length_ms={track.duration_ms}
                         addToList={addToList}
                         selectedList={selectedList}
+                        artistsIds={track.artistIds}
                     />
                     </div>
                 ))}

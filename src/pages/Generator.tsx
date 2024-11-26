@@ -12,14 +12,16 @@ import { Artist, SelectedType, Track } from '../App'
 
 
 interface GeneratorProps{
-    onGenerate: ()=> void
+    onGenerate: ()=> void;
+    setSelected: (selected: SelectedType[]) => void;
+    selected: SelectedType[];
 }
 
-export function Generator({onGenerate}: GeneratorProps){
+export function Generator({setSelected, selected, onGenerate}: GeneratorProps){
     
     const [artistsSearched, setArtistsSearched] = useState<Artist[]>([]);
     const [tracksSearched, setTracksSearched] = useState<Track[]>([]);
-    const [selected, setSelected] = useState<SelectedType[]>([]);
+    
 
     return <>
         <div className='left'>
@@ -40,7 +42,7 @@ export function Generator({onGenerate}: GeneratorProps){
         <div className='right'>
             <SelectedFive selected={selected}></SelectedFive>
             <div className='generate_button'>
-            <TextButton shadowType='do' animate={true} icon={logo} onClick={onGenerate} text='Generate'></TextButton>
+            {(selected?.length>0)?<TextButton shadowType='do' animate={true} icon={logo} onClick={onGenerate} text='Generate'></TextButton>:""}
             </div>
         </div>
     </>
