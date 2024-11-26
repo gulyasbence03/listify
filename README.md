@@ -1,4 +1,4 @@
-# listify
+# Listify
 [React course main project]
 
 
