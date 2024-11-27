@@ -1,82 +1,62 @@
-import {useState} from 'react'
-import { getArtists, getTracks } from '../api/API';
-import { Artist, Track } from '../tools/Types';
-import reactLogo from '../assets/react.svg'
-import "./SearchBar.less"
+import { useState } from "react";
+import { Artist, Track } from "../tools/Types";
+import "./SearchBar.less";
+import { searchArtistsHelper, searchTracksHelper } from "../tools/SearchHelper";
 
-
+/**
+ * Props for the `SearchBar` component.
+ * This interface defines the functions required for updating the list of artists and tracks
+ * based on user search input.
+ *
+ * @interface SearchBarProps
+ * @property {Function} setArtistsSearched - A function that updates the list of searched artists.
+ * @property {Function} setTracksSearched - A function that updates the list of searched tracks.
+ */
 interface SearchBarProps {
-  setArtistsSearched: (artists: Artist[]) => void,
-  setTracksSearched: (tracks: Track[]) => void
+  setArtistsSearched: (artists: Artist[]) => void;
+  setTracksSearched: (tracks: Track[]) => void;
 }
 
-export function SearchBar({ setArtistsSearched, setTracksSearched } : SearchBarProps) {
+/**
+ * `SearchBar` component that allows the user to search for artists or songs.
+ * It listens for an "Enter" key press and performs search actions for both artists and tracks.
+ *
+ * @component
+ * @example
+ * // Usage example:
+ * <SearchBar
+ *    setArtistsSearched={updateArtistsList}
+ *    setTracksSearched={updateTracksList}
+ * />
+ *
+ * @param {SearchBarProps} props - The props for the `SearchBar` component.
+ * @returns {JSX.Element} The JSX to render the search bar.
+ */
+export function SearchBar({
+  setArtistsSearched,
+  setTracksSearched,
+}: SearchBarProps) {
+  const [searched, setSearched] = useState("");
 
-    const [searched, setSearched] = useState ("");
+  const handleSearchKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Enter" && searched.trim() !== "") {
+      await searchArtistsHelper(searched.trim(), setArtistsSearched);
+      await searchTracksHelper(searched.trim(), setTracksSearched);
+    }
+  };
 
-    return (
-        <div className='center' >
-
-          <input className='search_input'
-            type="text"
-            value={searched}
-            placeholder='Search for an Artist or Song...'
-            onChange={(e) => setSearched(e.target.value)}
-            onKeyDown={async (event) => {
-                    if (event.key === "Enter" && searched.trim() != ""){
-                      // Search artists
-                      const responseArtists = await getArtists(searched.trim());
-                      setArtistsSearched(
-                        responseArtists.artists.items.map(
-                          (artist: {
-                            id: string,
-                            name: string,
-                            images: [{
-                              url: string
-                            }] 
-                          }) => {
-                            
-                            return {
-                              id: artist.id,
-                              name: artist.name,
-                              images: artist.images?.[0]?.url || reactLogo
-                            };
-                          }
-                      )
-                    );
-                    // Search tracks
-                    const responseTracks = await getTracks(searched.trim());
-                    setTracksSearched(
-                      responseTracks.tracks.items.map(
-                        (track: {
-                          id : string,
-                          name: string,
-                          duration_ms: number,
-                          artists: [{
-                            name: string,
-                            id: string
-                          }],
-                          album: {
-                            images: [{
-                              url: string
-                            }]
-                          }
-                        }) => {
-                          return {
-                            id: track.id,
-                            name: track.name,
-                            duration_ms: track.duration_ms,
-                            artists: track.artists?.map((artist) => artist.name) || [],
-                            image: track.album.images?.[0]?.url || reactLogo,
-                            artistIds: track.artists?.map((artist) => artist.id) || []
-                          }
-                        }
-                      )
-                    );
-                  }
-                }
-            }
-          />
-        </div>
-    );
+  return (
+    <div className="center">
+      <input
+        className="search_input"
+        type="text"
+        value={searched}
+        placeholder="Search for an Artist or Song..."
+        onChange={(e) => setSearched(e.target.value)}
+        onKeyDown={handleSearchKeyDown}
+      />
+    </div>
+  );
 }
