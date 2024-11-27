@@ -27,7 +27,7 @@ export interface Track {
   id: string;
   name: string;
   duration_ms: number;
-  artists: string[];
+  artists: Artist[];
   image: string;
   artistIds: string[];
 }

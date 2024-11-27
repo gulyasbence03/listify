@@ -1,22 +1,20 @@
-
-import { removeDuplicates, shuffleArray } from '../tools/arrayUtils';
-import { SelectedType, Track } from '../tools/Types';
-import { createPlaylist } from './CreateGeneratedPlaylistAPI';
-import { getRecommendation } from './GetRecommendationAPI';
-import { getTopTracks } from './GetTopTracksAPI';
+import { removeDuplicates, shuffleArray } from "../tools/arrayUtils";
+import { Artist, SelectedType, Track } from "../tools/Types";
+import { createPlaylist } from "./CreateGeneratedPlaylistAPI";
+import { getTopTracks } from "./GetTopTracksAPI";
 
 /**
  * Parameters for the `handleGenerate` function.
  *
  * @interface GenerateParameters
  * @property {SelectedType[]} selected - An array of selected items, either songs or artists.
- * @property {(isReady: boolean) => void} setIsPlayListReady - Function to update the playlist readiness state.
- * @property {(generated: string | null) => void} setGenerated - Function to update the generated playlist ID or null on failure.
+ * @property {(isReady: boolean) - void} setIsPlayListReady - Function to update the playlist readiness state.
+ * @property {(generated: string | null) - void} setGenerated - Function to update the generated playlist ID or null on failure.
  */
-interface GenerateParameters{
-    selected: SelectedType[];
-    setIsPlayListReady: (isReady: boolean) => void;
-    setGenerated: (generated: string | null) => void;
+interface GenerateParameters {
+  selected: SelectedType[];
+  setIsPlayListReady: (isReady: boolean) => void;
+  setGenerated: (generated: string | null) => void;
 }
 
 /**
@@ -45,47 +43,72 @@ interface GenerateParameters{
  * await handleGenerate(params);
  * ```
  */
-export const handleGenerate = async ({selected, setIsPlayListReady, setGenerated}:GenerateParameters) => {
-    setIsPlayListReady(true);
-    const songIds: string[] = [];
-    let genArtistIds: string[] = [];
-    const topArtistIds: string[] = [];
+export const handleGenerate = async ({
+  selected,
+  setIsPlayListReady,
+  setGenerated,
+}: GenerateParameters) => {
+  setIsPlayListReady(true);
+  let genArtistIds: string[] = [];
 
-    if (selected?.length > 0) {
-      selected.forEach((item) => {
-        if (item.type === 'song') {
-          songIds.push(item.id);
-          item.artistsIds?.map((artId: string)=>{topArtistIds.push(artId)});
-          
-        } else {
-          genArtistIds.push(item.id);
-        }
-      });
-
-      try {
-        genArtistIds =  removeDuplicates(genArtistIds);
-
-        const response = await getRecommendation(15, genArtistIds, songIds);
-        let generatedUris : string[] = response?.tracks.map(
-          (track : Track) => `spotify:track:${track.id}`
-        )
-        genArtistIds = genArtistIds.concat(topArtistIds);
-        await Promise.all(
-          genArtistIds.map(async artistId => {
-            const topFives = await getTopTracks(artistId);
-            topFives?.tracks.forEach((track: Track) => {
-              generatedUris.push(`spotify:track:${track.id}`);
-            });
-          })
-        );
-
-        generatedUris =  removeDuplicates(generatedUris);
-        generatedUris = shuffleArray(generatedUris);
-
-        const resp = await createPlaylist(generatedUris, "Listify Playlist", false);
-        setGenerated(resp?resp:null);
-      } catch (error) {
-        console.error('Error fetching recommendations:', error);
+  if (selected?.length > 0) {
+    selected.forEach((item) => {
+      if (item.type === "song") {
+        item.artistsIds?.map((artId: string) => {
+          genArtistIds.push(artId);
+        });
+      } else {
+        genArtistIds.push(item.id);
       }
+    });
+
+    try {
+      genArtistIds = removeDuplicates(genArtistIds);
+
+      let generatedUris: string[] = [];
+
+      await Promise.all(
+        genArtistIds.map(async (artistId) => {
+          const featureArtists: string[] = [];
+          const topTracks = await getTopTracks(artistId);
+      
+          // Collect tracks and artist IDs
+          topTracks?.tracks.forEach((track: Track) => {
+            generatedUris.push(`spotify:track:${track.id}`);
+            track.artists?.forEach((artist: Artist) => {
+              featureArtists.push(artist.id);
+            });
+          });
+      
+          // Remove duplicates after collecting all artists
+          const uniqueFeatureArtists = removeDuplicates(featureArtists);
+      
+          // Process feature artists
+          for (const featureId of uniqueFeatureArtists) {
+            const featureTopTracks = await getTopTracks(featureId);
+            featureTopTracks?.tracks.forEach((featureTrack: Track) => {
+              generatedUris.push(`spotify:track:${featureTrack.id}`);
+            });
+          }
+        })
+      );
+
+      generatedUris = removeDuplicates(generatedUris);
+      generatedUris = shuffleArray(generatedUris);
+      
+      if(generatedUris.length>100){
+        generatedUris = generatedUris.slice(0,100);
+      }
+      console.log(genArtistIds.length);
+
+      const resp = await createPlaylist(
+        generatedUris,
+        "Listify Playlist",
+        false
+      );
+      setGenerated(resp ? resp : null);
+    } catch (error) {
+      console.error("Error fetching recommendations:", error);
     }
-  };
+  }
+};

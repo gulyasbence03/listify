@@ -7,9 +7,9 @@ import { BASEURL, logOutOnError } from "./BaseAPI";
  * @param artists - An array of artist IDs used as seeds for recommendations.
  * @param tracks - An array of track IDs used as seeds for recommendations.
  * @returns A promise that resolves to the response JSON containing the recommended tracks.
- * 
+ *
  * @throws Logs an error to the console if the request fails.
- * 
+ *
  * @remarks
  * - The function uses the Spotify API to generate personalized recommendations.
  * - It retrieves an `access_token` from local storage for authentication.
@@ -19,30 +19,57 @@ import { BASEURL, logOutOnError } from "./BaseAPI";
  * @example
  * ```typescript
  * const recommendations = await getRecommendation(
- *   10, 
- *   ["4NHQUGzhtTLFvgF5SZesLK"], 
+ *   10,
+ *   ["4NHQUGzhtTLFvgF5SZesLK"],
  *   ["0c6xIDDpzE81m2q797ordA"]
  * );
  * console.log(recommendations);
  * ```
  */
+/*
+--------------------------------------
+DEPRECATED 2024.11.27 :((((
 export const getRecommendation = async (limit: number, artists: string[], tracks : string[]) => {
-    const token = localStorage.getItem("access_token");
-      try {
-        const response = await fetch(
-          `${BASEURL}/recommendations?limit=${limit}&seed_artists=${artists.join(",")}&seed_tracks=${tracks.join(",")}`,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-        if(response.status === 401){
-          logOutOnError();
+  const token = localStorage.getItem("access_token");
+    try {
+      const response = await fetch(
+        `${BASEURL}/recommendations?limit=${limit}&seed_artists=${artists.join(",")}&seed_tracks=${tracks.join(",")}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
         }
-        return response.json();
+      );
+      if(response.status === 401){
+        logOutOnError();
       }
-    catch(error){
-      console.log(error);
+      console.log(response)
+      return response.json();
     }
-  };
+  catch(error){
+    console.log(error);
+  }
+};
+------------------------------------
+*/
+export const getRecommendation = async (limit: number, artists: string[], tracks : string[]) => {
+  const token = localStorage.getItem("access_token");
+    try {
+      const response = await fetch(
+        `${BASEURL}/recommendations?limit=${limit}&seed_artists=${artists.join(",")}&seed_tracks=${tracks.join(",")}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      if(response.status === 401){
+        logOutOnError();
+      }
+      console.log(response)
+      return response.json();
+    }
+  catch(error){
+    console.log(error);
+  }
+};
